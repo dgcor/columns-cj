@@ -1,0 +1,278 @@
+{
+  "action": {
+    "name": "resource.add",
+    "id": "popup",
+    "ignorePrevious": true
+  },
+  "replaceVars": "value",
+  "variable": {
+    "reload": false,
+    "newScale": "|scale|",
+    "newShader": "|shader|"
+  },
+  "texture": { "file": "gfx|scale|x/options.png" },
+  "image": {
+    "id": "background",
+    "texture": "options",
+    "anchor": "none"
+  },
+  "menu": {
+    "id": "settings",
+    "font": "font1White",
+    "focus": true,
+    "position": ["center", "center"],
+    "anchor": "none",
+    "horizontalAlign": "center",
+    "verticalAlign": "center",
+    "verticalPad": "|$.#scale * 11|",
+    "items": [
+      {
+        "binding": "%newScale%",
+        "format": "Scale: [1]x",
+        "onClick": {
+          "name": "switch",
+          "param": "%newScale%",
+          "case": [
+            {
+              "value": 1,
+              "action": { "name": "variable.set", "key": "newScale", "value": 2 }
+            },
+            {
+              "value": 2,
+              "action": { "name": "variable.set", "key": "newScale", "value": 3 }
+            },
+            {
+              "value": 3,
+              "action": { "name": "variable.set", "key": "newScale", "value": 4 }
+            },
+            {
+              "value": 4,
+              "action": { "name": "variable.set", "key": "newScale", "value": 1 }
+            }
+          ],
+          "default": 1
+        }
+      },
+      {
+        "executeAction": {
+          "name": "if.equal",
+          "param1": "%game.stretchToFit%",
+          "param2": true,
+          "then": { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "text": "Stretch to Fit: On" },
+          "else": { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "text": "Stretch to Fit: Off" }
+        },
+        "onClick": {
+          "name": "if.equal",
+          "param1": "%game.stretchToFit%",
+          "param2": false,
+          "then": [
+            { "name": "game.setProperty", "property": "stretchToFit", "value": true },
+            { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "text": "Stretch to Fit: On" }
+          ],
+          "else": [
+            { "name": "game.setProperty", "property": "stretchToFit", "value": false },
+            { "name": "menu.setText", "id": "settings", "index": "!menuIdx!","text": "Stretch to Fit: Off" }
+          ]
+        }
+      },
+      {
+        "executeAction": {
+          "name": "if.equal",
+          "param1": "%game.keepAR%",
+          "param2": true,
+          "then": { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "text": "Keep Ratio: On" },
+          "else": { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "text": "Keep Ratio: Off" }
+        },
+        "onClick": {
+          "name": "if.equal",
+          "param1": "%game.keepAR%",
+          "param2": false,
+          "then": [
+            { "name": "game.setProperty", "property": "keepAR", "value": true },
+            { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "text": "Keep Ratio: On" }
+          ],
+          "else": [
+            { "name": "game.setProperty", "property": "keepAR", "value": false },
+            { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "text": "Keep Ratio: Off" }
+          ]
+        }
+      },
+      {
+        "executeAction": {
+          "name": "if.equal",
+          "param1": "%game.smoothScreen%",
+          "param2": true,
+          "then": { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "text": "Smooth Screen: On" },
+          "else": { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "text": "Smooth Screen: Off" }
+        },
+        "onClick": {
+          "name": "if.equal",
+          "param1": "%game.smoothScreen%",
+          "param2": false,
+          "then": [
+            { "name": "game.setProperty", "property": "smoothScreen", "value": true },
+            { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "text": "Smooth Screen: On" }
+          ],
+          "else": [
+            { "name": "game.setProperty", "property": "smoothScreen", "value": false },
+            { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "text": "Smooth Screen: Off" }
+          ]
+        }
+      },
+      {
+        "binding": "%newShader%",
+        "format": "Shader: [1]",
+        "onClick": {
+          "name": "switch",
+          "param": "%newShader%",
+          "case": [
+            {
+              "value": "default",
+              "action": [
+                { "name": "load", "file": "res/shaders/lanczos.json" },
+                { "name": "variable.set", "key": "newShader", "value": "lanczos" }
+              ]
+            },
+            {
+              "value": "lanczos",
+              "action": [
+                { "name": "load", "file": "res/shaders/scale4xhq.json" },
+                { "name": "variable.set", "key": "newShader", "value": "scale4xhq" }
+              ]
+            },
+            {
+              "value": "scale4xhq",
+              "action": [
+                { "name": "load", "file": "res/shaders/xbrz4x.json" },
+                { "name": "variable.set", "key": "newShader", "value": "xbrz4x" }
+              ]
+            },
+            {
+              "value": "xbrz4x",
+              "action": [
+                { "name": "load", "file": "res/shaders/default.json" },
+                { "name": "variable.set", "key": "newShader", "value": "default" }
+              ]
+            }
+          ],
+          "default": "default"
+        }
+      },
+      {
+        "executeAction": {
+          "name": "if.equal",
+          "param1": "%game.frameRate%",
+          "param2": 0,
+          "then": { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "text": "Framerate Limit: Off" },
+          "else": { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "binding": "%game.frameRate%", "format": "Framerate Limit: [1]" }
+        },
+        "onClick": {
+          "name": "switch",
+          "param": "%game.frameRate%",
+          "case": [
+            {
+              "value": 0,
+              "action": [
+                { "name": "game.setProperty", "property": "frameRate", "value": 30 },
+                {
+                  "name": "menu.setText",
+                  "id": "settings",
+                  "index": "!menuIdx!",
+                  "binding": "%game.frameRate%",
+                  "format": "Framerate Limit: [1]"
+                }
+              ]
+            },
+            {
+              "value": 30,
+              "action": [
+                { "name": "game.setProperty", "property": "frameRate", "value": 60 },
+                {
+                  "name": "menu.setText",
+                  "id": "settings",
+                  "index": "!menuIdx!",
+                  "binding": "%game.frameRate%",
+                  "format": "Framerate Limit: [1]"
+                }
+              ]
+            },
+            {
+              "value": 60,
+              "action": [
+                { "name": "game.setProperty", "property": "frameRate", "value": 120 },
+                {
+                  "name": "menu.setText",
+                  "id": "settings",
+                  "index": "!menuIdx!",
+                  "binding": "%game.frameRate%",
+                  "format": "Framerate Limit: [1]"
+                }
+              ]
+            },
+            {
+              "value": 120,
+              "action": [
+                { "name": "game.setProperty", "property": "frameRate", "value": 0 },
+                {
+                  "name": "menu.setText",
+                  "id": "settings",
+                  "index": "!menuIdx!",
+                  "text": "Framerate Limit: Off"
+                }
+              ]
+            }
+          ],
+          "default": { "name": "game.setProperty", "property": "frameRate", "value": 60 }
+        }
+      },
+      {
+        "executeAction": {
+          "name": "if.equal",
+          "param1": "%bgm%",
+          "param2": true,
+          "then": { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "text": "BGM: On" },
+          "else": { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "text": "BGM: Off" }
+        },
+        "onClick": {
+          "name": "if.equal",
+          "param1": "%bgm%",
+          "param2": false,
+          "then": [
+            { "name": "variable.set", "key": "bgm", "value": true },
+            { "name": "menu.setText", "id": "settings", "index": "!menuIdx!", "text": "BGM: On" }
+          ],
+          "else": [
+            { "name": "variable.set", "key": "bgm", "value": false },
+            { "name": "menu.setText", "id": "settings", "index": "!menuIdx!","text": "BGM: Off" }
+          ]
+        }
+      },
+      {
+        "text": "OK",
+        "onClick": [
+          {
+          "name": "if.notEqual",
+          "param1": "%newScale%",
+          "param2": "%scale%",
+            "then": { "name": "variable.set", "key": "reload", "value": true }
+          },
+          { "name": "variable.set", "key": "scale", "value": "%newScale%" },
+          { "name": "variable.set", "key": "shader", "value": "%newShader%" },
+          "saveSettings",
+          {
+            "name": "if.equal",
+            "param1": "%reload%",
+            "param2": true,
+            "then": { "name": "game.load", "file": "gamefilesc" },
+            "else": { "name": "resource.pop" }
+          },
+          { "name": "variable.clear", "key": "reload" }
+        ]
+      }
+    ]
+  },
+  "inputEvent": {
+    "gameInputEvent": ["enter", "esc", "space", "settings"],
+    "action": { "name": "menu.click", "id": "settings", "index": "|$.settings.itemCount - 1|" }
+  }
+}

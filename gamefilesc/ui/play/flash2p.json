@@ -1,0 +1,252 @@
+{
+  "action": {
+    "name": "resource.add",
+    "id": "play",
+    "ignorePrevious": true
+  },
+  "replaceVars": "value",
+  "texture": { "file": "gfx|scale|x/flash2p.png" },
+  "button": {
+    "id": "background",
+    "anchor": "none",
+    "texture": "flash2p",
+    "captureInputEvents": true
+  },
+  "text": [
+    {
+      "id": "txtBestLabel",
+      "font": "font3",
+      "position": ["|$.#scale * 144|", "|$.#scale * 124|"],
+      "anchor": "none",
+      "text": "Best"
+    },
+    {
+      "id": "txtLevelLabel",
+      "font": "font3",
+      "position": ["|$.#scale * 140|", "|$.#scale * 164|"],
+      "anchor": "none",
+      "text": "Level"
+    },
+    {
+      "id": "txtClassLabel",
+      "font": "font3",
+      "position": ["|$.#scale * 140|", "|$.#scale * 196|"],
+      "anchor": "none",
+      "text": "Class"
+    },
+    {
+      "id": "txtTime",
+      "font": "font4Cyan",
+      "position": ["|$.#scale * 161|", "|$.#scale * 65|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%level.timer.MMSS%"
+    },
+    {
+      "id": "txtBest",
+      "font": "font3",
+      "position": ["|$.#scale * 160|", "|$.#scale * 112|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "text": "0:00"
+    },
+    {
+      "id": "txtLevel",
+      "font": "font3",
+      "position": ["|$.#scale * 144|", "|$.#scale * 152|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%level.level%"
+    },
+    {
+      "id": "txtClass",
+      "font": "font3",
+      "position": ["|$.#scale * 144|", "|$.#scale * 184|"],
+      "anchor": "none",
+      "horizontalAlign": "right"
+    },
+    {
+      "id": "txtTimeP2",
+      "font": "font4Cyan",
+      "position": ["|$.#scale * 201|", "|$.#scale * 89|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%level2.timer.MMSS%"
+    },
+    {
+      "id": "txtBestP2",
+      "font": "font3",
+      "position": ["|$.#scale * 200|", "|$.#scale * 136|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "text": "0:00"
+    },
+    {
+      "id": "txtLevelP2",
+      "font": "font3",
+      "position": ["|$.#scale * 200|", "|$.#scale * 176|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%level2.level%"
+    },
+    {
+      "id": "txtClassP2",
+      "font": "font3",
+      "position": ["|$.#scale * 200|", "|$.#scale * 208|"],
+      "anchor": "none",
+      "horizontalAlign": "right"
+    }
+  ],
+  "replaceVars.disable": false,
+  "load.level": "level/load2.json",
+  "load.pause1": "ui/play/pause1.json",
+  "load.pause2": "ui/play/pause2.json",
+  "action.game": [
+    {
+      "replaceVars": "value",
+      "name": "action.set",
+      "id": "newGame",
+      "action": { "name": "level.newGame", "type": "flash", "height": "|gameHeight|" }
+    },
+    {
+      "replaceVars": "value",
+      "name": "action.set",
+      "id": "newGame2",
+      "action": { "name": "level.newGame", "level": "level2", "type": "flash", "height": "|gameHeightP2|" }
+    },
+    {
+      "name": "action.set",
+      "id": "loadOrStartGame",
+      "action": {
+        "name": "if.equal",
+        "param1": { "name": "file.exists", "file": "saveFlash2p.json" },
+        "param2": true,
+        "then": [
+          { "name": "level.loadGame", "file": "saveFlash2p.json" },
+          "loadAndPlayBGM",
+          "pauseGame"
+        ],
+        "else": { "name": "load", "file": "ui/play/gameStart1.json" }
+      }
+    },
+    {
+      "name": "action.set",
+      "id": "loadOrStartGame2",
+      "action": {
+        "name": "if.equal",
+        "param1": { "name": "file.exists", "file": "saveFlash2p2.json" },
+        "param2": true,
+        "then": [
+          { "name": "level.loadGame", "level": "level2", "file": "saveFlash2p2.json" },
+          "loadAndPlayBGM",
+          "pauseGame2"
+        ],
+        "else": { "name": "load", "file": "ui/play/gameStart2.json" }
+      }
+    },
+    {
+      "name": "action.set",
+      "id": "saveGame",
+      "action": {
+        "name": "if.equal",
+        "param1": "%level.gameOver%",
+        "param2": false,
+        "then": [
+          { "name": "level.saveGame", "file": "saveFlash2p.json" },
+          {
+            "name": "file.copy",
+            "file": "level/saveVarsFile.json",
+            "writeFile": "saveFlash2pVars.json",
+            "replace": "value"
+          }
+        ],
+        "else": [
+          { "name": "io.delete", "file": "saveFlash2pVars.json" },
+          { "name": "io.delete", "file": "saveFlash2p.json" }
+        ]
+      }
+    },
+    {
+      "name": "action.set",
+      "id": "saveGame2",
+      "action": {
+        "name": "if.equal",
+        "param1": "%level2.gameOver%",
+        "param2": false,
+        "then": [
+          { "name": "level.saveGame", "level": "level2", "file": "saveFlash2p2.json" },
+          {
+            "name": "file.copy",
+            "file": "level/saveVarsFile.json",
+            "writeFile": "saveFlash2pVars.json",
+            "replace": "value"
+          }
+        ],
+        "else": { "name": "io.delete", "file": "saveFlash2p2.json" }
+      }
+    },
+    "loadOrStartGame",
+    "loadOrStartGame2",
+    {
+      "name": "switch",
+      "param": "%gameClass%",
+      "case": [
+        { "value": "novice", "action": { "name": "text.setText", "id": "txtClass", "text": "nov" } },
+        { "value": "amateur", "action": { "name": "text.setText", "id": "txtClass", "text": "ama" } },
+        { "value": "pro", "action": { "name": "text.setText", "id": "txtClass", "text": "pro" } }
+      ]
+    },
+    {
+      "name": "switch",
+      "param": "%gameClassP2%",
+      "case": [
+        { "value": "novice", "action": { "name": "text.setText", "id": "txtClassP2", "text": "nov" } },
+        { "value": "amateur", "action": { "name": "text.setText", "id": "txtClassP2", "text": "ama" } },
+        { "value": "pro", "action": { "name": "text.setText", "id": "txtClassP2", "text": "pro" } }
+      ]
+    }
+  ],
+  "inputEvent": [
+    {
+      "gameInputEvent": "esc",
+      "action": [
+        "saveGame",
+        "saveGame2",
+        { "name": "resource.pop" },
+        { "name": "event.deleteAll" }
+      ]
+    },
+    {
+      "gameInputEvent": "rotateJewels",
+      "event": "level.rotate"
+    },
+    {
+      "gameInputEvent": "down",
+      "event": "level.down"
+    },
+    {
+      "gameInputEvent": "left",
+      "event": "level.left"
+    },
+    {
+      "gameInputEvent": "right",
+      "event": "level.right"
+    },
+    {
+      "gameInputEvent": "rotateJewels2",
+      "event": "level2.rotate"
+    },
+    {
+      "gameInputEvent": "down2",
+      "event": "level2.down"
+    },
+    {
+      "gameInputEvent": "left2",
+      "event": "level2.left"
+    },
+    {
+      "gameInputEvent": "right2",
+      "event": "level2.right"
+    }
+  ]
+}

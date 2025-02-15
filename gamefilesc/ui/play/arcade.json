@@ -1,0 +1,292 @@
+{
+  "action": [
+    {
+      "name": "resource.add",
+      "id": "play",
+      "ignorePrevious": true
+    },
+    { "name": "variable.set", "key": "gameBGM", "value": "clotho" }
+  ],
+  "replaceVars": "value",
+  "texture": { "file": "gfx|scale|x/arcade.png" },
+  "button": {
+    "id": "background",
+    "anchor": "none",
+    "texture": "arcade",
+    "captureInputEvents": true
+  },
+  "text": [
+    {
+      "id": "txtScoreLabel",
+      "font": "font3",
+      "position": ["|$.#scale * 140|", "|$.#scale * 124|"],
+      "anchor": "none",
+      "text": "Score"
+    },
+    {
+      "id": "txtLevelLabel",
+      "font": "font3",
+      "position": ["|$.#scale * 140|", "|$.#scale * 164|"],
+      "anchor": "none",
+      "text": "Level"
+    },
+    {
+      "id": "txtJewelsLabel",
+      "font": "font3",
+      "position": ["|$.#scale * 136|", "|$.#scale * 196|"],
+      "anchor": "none",
+      "text": "Jewels"
+    },
+    {
+      "id": "txtScoreRound",
+      "font": "font4Pink",
+      "position": ["|$.#scale * 161|", "|$.#scale * 65|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%level.scoreRound%",
+      "bindingFlags": "WhenHidden",
+      "onChange": {
+        "name": "if.notEqual",
+        "param1": "%level.scoreRound%",
+        "param2": 0,
+        "then": [
+          { "name": "drawable.visible", "id": "txtScoreRound", "visible": true },
+          {
+            "name": "switch",
+            "param": "%level.chain%",
+            "case": [
+              {
+                "value": 1,
+                "action": { "name": "text.setFont", "id": "txtScoreRound", "font": "font4Pink" }
+              },
+              {
+                "value": 2,
+                "action": { "name": "text.setFont", "id": "txtScoreRound", "font": "font4Cyan" }
+              },
+              {
+                "value": 3,
+                "action": { "name": "text.setFont", "id": "txtScoreRound", "font": "font4Green" }
+              },
+              {
+                "value": 4,
+                "action": { "name": "text.setFont", "id": "txtScoreRound", "font": "font4Yellow" }
+              },
+              {
+                "value": 5,
+                "action": { "name": "text.setFont", "id": "txtScoreRound", "font": "font4Orange" }
+              }
+            ],
+            "default": { "name": "text.setFont", "id": "txtScoreRound", "font": "font4Red" }
+          }
+        ],
+        "else": { "name": "drawable.visible", "id": "txtScoreRound", "visible": false }
+      }
+    },
+    {
+      "id": "txtScore",
+      "font": "font3",
+      "position": ["|$.#scale * 184|", "|$.#scale * 112|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%level.score%"
+    },
+    {
+      "id": "txtLevel",
+      "font": "font3",
+      "position": ["|$.#scale * 144|", "|$.#scale * 152|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%level.level%"
+    },
+    {
+      "id": "txtJewels",
+      "font": "font3",
+      "position": ["|$.#scale * 152|", "|$.#scale * 184|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%level.jewels%"
+    },
+    {
+      "id": "txtScoreRoundP2",
+      "font": "font4Pink",
+      "position": ["|$.#scale * 201|", "|$.#scale * 89|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%level2.scoreRound%",
+      "bindingFlags": "WhenHidden",
+      "onChange": {
+        "name": "if.notEqual",
+        "param1": "%level2.scoreRound%",
+        "param2": 0,
+        "then": [
+          { "name": "drawable.visible", "id": "txtScoreRoundP2", "visible": true },
+          {
+            "name": "switch",
+            "param": "%level2.chain%",
+            "case": [
+              {
+                "value": 1,
+                "action": { "name": "text.setFont", "id": "txtScoreRoundP2", "font": "font4Pink" }
+              },
+              {
+                "value": 2,
+                "action": { "name": "text.setFont", "id": "txtScoreRoundP2", "font": "font4Cyan" }
+              },
+              {
+                "value": 3,
+                "action": { "name": "text.setFont", "id": "txtScoreRoundP2", "font": "font4Green" }
+              },
+              {
+                "value": 4,
+                "action": { "name": "text.setFont", "id": "txtScoreRoundP2", "font": "font4Yellow" }
+              },
+              {
+                "value": 5,
+                "action": { "name": "text.setFont", "id": "txtScoreRoundP2", "font": "font4Orange" }
+              }
+            ],
+            "default": { "name": "text.setFont", "id": "txtScoreRoundP2", "font": "font4Red" }
+          }
+        ],
+        "else": { "name": "drawable.visible", "id": "txtScoreRoundP2", "visible": false }
+      }
+    },
+    {
+      "id": "txtScoreP2",
+      "font": "font3",
+      "position": ["|$.#scale * 200|", "|$.#scale * 136|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%level2.score%"
+    },
+    {
+      "id": "txtLevelP2",
+      "font": "font3",
+      "position": ["|$.#scale * 200|", "|$.#scale * 176|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%level2.level%"
+    },
+    {
+      "id": "txtJewelsP2",
+      "font": "font3",
+      "position": ["|$.#scale * 200|", "|$.#scale * 208|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%level2.jewels%"
+    }
+  ],
+  "replaceVars.disable": false,
+  "load.level": "level/loadArcade.json",
+  "load.pause1": "ui/play/pause1.json",
+  "load.pause2": "ui/play/pause2.json",
+  "action.game": [
+    {
+      "name": "action.set",
+      "id": "newGame",
+      "action": { "name": "level.newGame", "type": "original" }
+    },
+    {
+      "name": "action.set",
+      "id": "newGame2",
+      "action": { "name": "level.newGame", "level": "level2", "type": "original" }
+    },
+    {
+      "name": "action.set",
+      "id": "loadOrStartGame",
+      "action": {
+        "name": "if.equal",
+        "param1": { "name": "file.exists", "file": "saveArcade.json" },
+        "param2": true,
+        "then": [
+          { "name": "level.loadGame", "file": "saveArcade.json" },
+          "loadAndPlayBGM",
+          "pauseGame"
+        ],
+        "else": { "name": "load", "file": "ui/play/gameStart1.json" }
+      }
+    },
+    {
+      "name": "action.set",
+      "id": "loadOrStartGame2",
+      "action": {
+        "name": "if.equal",
+        "param1": { "name": "file.exists", "file": "saveArcade2.json" },
+        "param2": true,
+        "then": [
+          { "name": "level.loadGame", "level": "level2", "file": "saveArcade2.json" },
+          "loadAndPlayBGM",
+          "pauseGame2"
+        ],
+        "else": { "name": "load", "file": "ui/play/pressStart2.json" }
+      }
+    },
+    {
+      "name": "action.set",
+      "id": "saveGame",
+      "action": {
+        "name": "if.equal",
+        "param1": "%level.gameOver%",
+        "param2": false,
+        "then": { "name": "level.saveGame", "file": "saveArcade.json" },
+        "else": { "name": "io.delete", "file": "saveArcade.json" }
+      }
+    },
+    {
+      "name": "action.set",
+      "id": "saveGame2",
+      "action": {
+        "name": "if.equal",
+        "param1": "%level2.gameOver%",
+        "param2": false,
+        "then": { "name": "level.saveGame", "level": "level2", "file": "saveArcade2.json" },
+        "else": { "name": "io.delete", "file": "saveArcade2.json" }
+      }
+    },
+    "loadOrStartGame",
+    "loadOrStartGame2"
+  ],
+  "inputEvent": [
+    {
+      "gameInputEvent": "esc",
+      "action": [
+        "saveGame",
+        "saveGame2",
+        { "name": "resource.pop" },
+        { "name": "event.deleteAll" }
+      ]
+    },
+    {
+      "gameInputEvent": "rotateJewels",
+      "event": "level.rotate"
+    },
+    {
+      "gameInputEvent": "down",
+      "event": "level.down"
+    },
+    {
+      "gameInputEvent": "left",
+      "event": "level.left"
+    },
+    {
+      "gameInputEvent": "right",
+      "event": "level.right"
+    },
+    {
+      "gameInputEvent": "rotateJewels2",
+      "event": "level2.rotate"
+    },
+    {
+      "gameInputEvent": "down2",
+      "event": "level2.down"
+    },
+    {
+      "gameInputEvent": "left2",
+      "event": "level2.left"
+    },
+    {
+      "gameInputEvent": "right2",
+      "event": "level2.right"
+    }
+  ]
+}

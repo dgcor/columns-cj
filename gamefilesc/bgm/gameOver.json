@@ -1,0 +1,29 @@
+{
+  "action": {
+    "name": "if.equal",
+    "param1": "%game.VGM%",
+    "param2": true,
+    "then": {
+      "name": "loadJson",
+      "json": {
+        "audio": {
+          "id": "gameOver",
+          "file": "bgm/12 - Concilation (Game Over).vgz",
+          "loop": false,
+          "play": true
+        }
+      }
+    },
+    "else": {
+      "name": "loadJson",
+      "json": {
+        "audio": {
+          "id": "gameOver",
+          "file": "bgm/12 - Concilation (Game Over).ogg",
+          "loop": false,
+          "play": true
+        }
+      }
+    }
+  }
+}

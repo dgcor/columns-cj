@@ -1,0 +1,206 @@
+{
+  "action": {
+    "name": "resource.add",
+    "id": "play",
+    "ignorePrevious": true
+  },
+  "replaceVars": "value",
+  "texture": { "file": "gfx|scale|x/flashDoubles.png" },
+  "button": {
+    "id": "background",
+    "anchor": "none",
+    "texture": "flashDoubles",
+    "captureInputEvents": true
+  },
+  "text": [
+    {
+      "id": "txtBestLabel",
+      "font": "font3",
+      "position": ["|$.#scale * 48|", "|$.#scale * 124|"],
+      "anchor": "none",
+      "text": "Best"
+    },
+    {
+      "id": "txtLevelLabel",
+      "font": "font3",
+      "position": ["|$.#scale * 44|", "|$.#scale * 164|"],
+      "anchor": "none",
+      "text": "Level"
+    },
+    {
+      "id": "txtClassLabel",
+      "font": "font3",
+      "position": ["|$.#scale * 44|", "|$.#scale * 196|"],
+      "anchor": "none",
+      "text": "Class"
+    },
+    {
+      "id": "txtTime",
+      "font": "font4Cyan",
+      "position": ["|$.#scale * 105|", "|$.#scale * 89|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%currentLevel.timer.MMSS%"
+    },
+    {
+      "id": "txtBest",
+      "font": "font3",
+      "position": ["|$.#scale * 104|", "|$.#scale * 136|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "text": "0:00"
+    },
+    {
+      "id": "txtLevel",
+      "font": "font3",
+      "position": ["|$.#scale * 104|", "|$.#scale * 176|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%currentLevel.level%"
+    },
+    {
+      "id": "txtClass",
+      "font": "font3",
+      "position": ["|$.#scale * 104|", "|$.#scale * 208|"],
+      "anchor": "none",
+      "horizontalAlign": "right"
+    },
+    {
+      "id": "txtBestLabelP2",
+      "font": "font3",
+      "position": ["|$.#scale * 240|", "|$.#scale * 124|"],
+      "anchor": "none",
+      "text": "Best"
+    },
+    {
+      "id": "txtLevelLabelP2",
+      "font": "font3",
+      "position": ["|$.#scale * 236|", "|$.#scale * 164|"],
+      "anchor": "none",
+      "text": "Level"
+    },
+    {
+      "id": "txtClassLabelP2",
+      "font": "font3",
+      "position": ["|$.#scale * 236|", "|$.#scale * 196|"],
+      "anchor": "none",
+      "text": "Class"
+    },
+    {
+      "id": "txtTimeP2",
+      "font": "font4Cyan",
+      "position": ["|$.#scale * 257|", "|$.#scale * 89|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%currentLevel.timer.MMSS%"
+    },
+    {
+      "id": "txtBestP2",
+      "font": "font3",
+      "position": ["|$.#scale * 256|", "|$.#scale * 136|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "text": "0:00"
+    },
+    {
+      "id": "txtLevelP2",
+      "font": "font3",
+      "position": ["|$.#scale * 240|", "|$.#scale * 176|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%currentLevel.level%"
+    },
+    {
+      "id": "txtClassP2",
+      "font": "font3",
+      "position": ["|$.#scale * 240|", "|$.#scale * 208|"],
+      "anchor": "none",
+      "horizontalAlign": "right",
+      "binding": "%txtClass.text%"
+    }
+  ],
+  "replaceVars.disable": false,
+  "load.level": "level/load.json",
+  "load.pause": "ui/play/pause.json",
+  "action.game": [
+    {
+      "replaceVars": "value",
+      "name": "action.set",
+      "id": "newGame",
+      "action": { "name": "level.newGame", "type": "flash", "players": 2, "height": "|gameHeight|" }
+    },
+    {
+      "name": "action.set",
+      "id": "loadOrStartGame",
+      "action": {
+        "name": "if.equal",
+        "param1": { "name": "file.exists", "file": "saveFlashDoubles.json" },
+        "param2": true,
+        "then": [
+          { "name": "level.loadGame", "file": "saveFlashDoubles.json" },
+          "loadAndPlayBGM",
+          "pauseGame"
+        ],
+        "else": { "name": "load", "file": "ui/play/gameStart.json" }
+      }
+    },
+    {
+      "name": "action.set",
+      "id": "saveGame",
+      "action": {
+        "name": "if.equal",
+        "param1": "%level.gameOver%",
+        "param2": false,
+        "then": [
+          { "name": "level.saveGame", "file": "saveFlashDoubles.json" },
+          {
+            "name": "file.copy",
+            "file": "level/saveVarsFile.json",
+            "writeFile": "saveFlashDoublesVars.json",
+            "replace": "value"
+          }
+        ],
+        "else": [
+          { "name": "io.delete", "file": "saveFlashDoublesVars.json" },
+          { "name": "io.delete", "file": "saveFlashDoubles.json" }
+        ]
+      }
+    },
+    "loadOrStartGame",
+    {
+      "name": "switch",
+      "param": "%gameClass%",
+      "case": [
+        { "value": "novice", "action": { "name": "text.setText", "id": "txtClass", "text": "nov" } },
+        { "value": "amateur", "action": { "name": "text.setText", "id": "txtClass", "text": "ama" } },
+        { "value": "pro", "action": { "name": "text.setText", "id": "txtClass", "text": "pro" } }
+      ]
+    }
+  ],
+  "inputEvent": [
+    {
+      "gameInputEvent": "esc",
+      "action": [
+        "saveGame",
+        { "name": "resource.pop" },
+        { "name": "event.deleteAll" }
+      ]
+    },
+    {
+      "gameInputEvent": "rotateJewels",
+      "event": "level.rotate"
+    },
+    {
+      "gameInputEvent": "down",
+      "event": "level.down"
+    },
+    {
+      "gameInputEvent": "left",
+      "event": "level.left"
+    },
+    {
+      "gameInputEvent": "right",
+      "event": "level.right"
+    }
+  ]
+}
