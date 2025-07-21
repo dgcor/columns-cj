@@ -11,8 +11,8 @@ class LevelBoardUtils {
             let cellB = level.board[boardPosB]
             match ((cellA.jewel, cellB.jewel)) {
                 case (Some(j1), Some(j2)) where j1.cls == cls && j2.cls == cls =>
-                    hintPositions.append(boardPosA)
-                    hintPositions.append(boardPosB)
+                    hintPositions.add(boardPosA)
+                    hintPositions.add(boardPosB)
                 case _ => ()
             }
         }
@@ -25,7 +25,7 @@ class LevelBoardUtils {
         for (jewel in level.currentJewels) {
             let cls = jewel.cls
             if (checkClasses.contains(cls) == false) {
-                checkClasses.append(cls)
+                checkClasses.add(cls)
             }
         }
         for (x in 0..level.board.size[0]) {

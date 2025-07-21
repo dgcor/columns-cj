@@ -2,7 +2,7 @@ package Columns
 
 import cjsfml.graphics.*
 import dgengine.*
-import encoding.json.stream.*
+import stdx.encoding.json.stream.*
 import std.collection.*
 import std.io.*
 
@@ -45,13 +45,13 @@ class LevelSave {
     }
 
     static func save(level: Level, filePath: String): Unit {
-        let stream = ByteArrayStream()
+        let stream = ByteBuffer()
         let writer = JsonWriter(stream)
         writer.writeConfig = WriteConfig.pretty
         writer.writeConfig.indent = "  "
         serialize(level, writer)
         writer.flush()
-        FileUtils.saveText(filePath, stream.readString())
+        FileUtils.saveBytes(filePath, stream.bytes())
     }
 
     private static func serialize(level: Level, writer: JsonWriter): Unit {

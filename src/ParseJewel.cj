@@ -2,7 +2,7 @@ package Columns
 
 import cjsfml.system.*
 import dgengine.*
-import encoding.json.*
+import stdx.encoding.json.*
 import std.math.*
 
 func parseJewel(game: Game, elem: JsonValue): Unit {

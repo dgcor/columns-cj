@@ -1,7 +1,7 @@
 package Columns
 
 import dgengine.*
-import encoding.json.*
+import stdx.encoding.json.*
 import std.collection.*
 
 private func parseLevelSavePlayer(elem: JsonObject): LevelPlayer {
@@ -45,7 +45,7 @@ func parseLevelSaveObj(level: Level, elem: JsonValue): LevelSaveObject {
     if (let Some(elem) <- getValidArray(elem, "players")) {
         for (val in elem.getItems()) {
             if (let Some(val) <- getValidObject(val)) {
-                levelSave.players.append(parseLevelSavePlayer(val))
+                levelSave.players.add(parseLevelSavePlayer(val))
             }
         }
     }
@@ -58,7 +58,7 @@ func parseLevelSaveObj(level: Level, elem: JsonValue): LevelSaveObject {
                         jewel.flash = true
                         levelSave.hasFlash = true
                     }
-                    levelSave.boardJewels.append(jewel)
+                    levelSave.boardJewels.add(jewel)
                 }
             }
         }
@@ -69,7 +69,7 @@ func parseLevelSaveObj(level: Level, elem: JsonValue): LevelSaveObject {
         for (val in elem.getItems()) {
             if (let Some(val) <- getValidObject(val)) {
                 if (let Some(jewel) <- parseLevelSaveJewel(level, val)) {
-                    jewels.append(jewel)
+                    jewels.add(jewel)
                 }
             }
         }

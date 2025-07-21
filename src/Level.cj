@@ -162,7 +162,7 @@ class Level {
     }
 
     func addJewelClass(key: String, obj: JewelClass): Unit {
-        m_jewelsClasses.put(key, obj)
+        m_jewelsClasses.add(key, obj)
     }
 
     func getJewelClass(key: String): ?JewelClass {
@@ -382,7 +382,7 @@ class Level {
                 let jewel = makeRandomJewel()
                 jewel.boardPosition = boardPos
                 LevelDraw.setAnimationPosition(this, jewel, boardPos)
-                jewels.append(jewel)
+                jewels.add(jewel)
                 height--
                 boardPos = (boardPos[0], boardPos[1] - 1.0)
             }
@@ -400,7 +400,7 @@ class Level {
                 let jewel = Jewel(magicJewelClass)
                 jewel.boardPosition = boardPos
                 LevelDraw.setAnimationPosition(this, jewel, boardPos)
-                jewels.append(jewel)
+                jewels.add(jewel)
                 height--
                 boardPos = (boardPos[0], boardPos[1] - 1.0)
             }
@@ -553,7 +553,7 @@ class Level {
 
     private func doHints(): Unit {
         highlightPositions.clear()
-        highlightPositions.appendAll(LevelBoardUtils.getHintPositions(this))
+        highlightPositions.add(all: LevelBoardUtils.getHintPositions(this))
         highlightAnim.reset()
         highlightAnim.visible = true
     }

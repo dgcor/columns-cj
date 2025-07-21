@@ -1,7 +1,7 @@
 package Columns
 
 import dgengine.*
-import encoding.json.*
+import stdx.encoding.json.*
 import std.collection.*
 
 func parseLevelScores(scoreManager: LevelScoreManager, elem: JsonArray): Unit {
@@ -13,7 +13,7 @@ func parseLevelScores(scoreManager: LevelScoreManager, elem: JsonArray): Unit {
         score.score = getInt64Key(val, "score")
         score.jewels = getInt64Key(val, "jewels")
         score.time = getTimeUKey(val, "time")
-        scores.append(score)
+        scores.add(score)
     }
     scoreManager.set(scores)
 }

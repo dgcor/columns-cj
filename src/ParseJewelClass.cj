@@ -1,7 +1,7 @@
 package Columns
 
 import dgengine.*
-import encoding.json.*
+import stdx.encoding.json.*
 import std.math.*
 
 func parseJewelClass(game: Game, elem: JsonValue): Unit {

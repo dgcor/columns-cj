@@ -1,7 +1,7 @@
 package Columns
 
 import dgengine.*
-import encoding.json.*
+import stdx.encoding.json.*
 import std.collection.*
 
 func parseLevelOptions(optionsManager: LevelOptionsManager, elem: JsonArray): Unit {
@@ -26,12 +26,12 @@ func parseLevelOptions(optionsManager: LevelOptionsManager, elem: JsonArray): Un
             let jewels = ArrayList<String>()
             for (val in elem.getItems()) {
                 if (let Some(id) <- getValidString(val)) {
-                    jewels.append(id)
+                    jewels.add(id)
                 }
             }
             options.jewels = jewels.toArray()
         }
-        allOptions.append(options)
+        allOptions.add(options)
     }
     optionsManager.set(allOptions)
 }

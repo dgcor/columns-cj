@@ -1,7 +1,7 @@
 package Columns
 
 import dgengine.*
-import encoding.json.*
+import stdx.encoding.json.*
 
 func parseLevelAddHighScore(elem: JsonValue): ?Action {
     ActLevelAddHighScore(

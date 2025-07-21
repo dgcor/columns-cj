@@ -6,7 +6,7 @@ class LevelPlayerManager <: Iterable<LevelPlayer> {
     private static const MaxPlayers = 2
     private var m_players = Array<LevelPlayer>(MaxPlayers, {_ => LevelPlayer()})
     private var m_playerIdx: Int64 = 0
-    private var m_startPositions = Array<Int64>(MaxPlayers, item: 0)
+    private var m_startPositions = Array<Int64>(MaxPlayers, repeat: 0)
 
     // Iterable
 
