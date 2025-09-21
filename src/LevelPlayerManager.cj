@@ -21,10 +21,10 @@ class LevelPlayerManager <: Iterable<LevelPlayer> {
             numPlayers,
             {
                 _ =>
-                var player = LevelPlayer()
-                player.levelStart = initialLevel
-                player.options = optionsManager.get(player.getLevel())
-                return player
+                    var player = LevelPlayer()
+                    player.levelStart = initialLevel
+                    player.options = optionsManager.get(player.getLevel())
+                    return player
             }
         )
         m_playerIdx = 0
@@ -40,9 +40,9 @@ class LevelPlayerManager <: Iterable<LevelPlayer> {
             numPlayers,
             {
                 index =>
-                var player = players[index]
-                player.options = optionsManager.get(player.getLevel())
-                return player
+                    var player = players[index]
+                    player.options = optionsManager.get(player.getLevel())
+                    return player
             }
         )
         m_playerIdx = match (playerIdx >= 0 && playerIdx < numPlayers) {

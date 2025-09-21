@@ -319,8 +319,8 @@ class Level {
                 board.size[1],
                 {
                     _ =>
-                    hasMatch.value = true
-                    return false
+                        hasMatch.value = true
+                        return false
                 }
             )
             if (hasMatch.value == false) {

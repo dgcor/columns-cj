@@ -24,24 +24,24 @@ class LevelScoreManager {
             m_levelScores,
             by: {
                 a, b =>
-                if (b.time > a.time) {
-                    return Ordering.GT
-                } else if (b.time < a.time) {
-                    return Ordering.LT
-                } else if (b.score > a.score) {
-                    return Ordering.GT
-                } else if (b.score < a.score) {
-                    return Ordering.LT
-                } else if (b.level > a.level) {
-                    return Ordering.GT
-                } else if (b.level < a.level) {
-                    return Ordering.LT
-                } else if (b.jewels > a.jewels) {
-                    return Ordering.GT
-                } else if (b.jewels < a.jewels) {
-                    return Ordering.LT
-                }
-                return Ordering.EQ
+                    if (b.time > a.time) {
+                        return Ordering.GT
+                    } else if (b.time < a.time) {
+                        return Ordering.LT
+                    } else if (b.score > a.score) {
+                        return Ordering.GT
+                    } else if (b.score < a.score) {
+                        return Ordering.LT
+                    } else if (b.level > a.level) {
+                        return Ordering.GT
+                    } else if (b.level < a.level) {
+                        return Ordering.LT
+                    } else if (b.jewels > a.jewels) {
+                        return Ordering.GT
+                    } else if (b.jewels < a.jewels) {
+                        return Ordering.LT
+                    }
+                    return Ordering.EQ
             }
         )
         if (m_levelScores.size > MaxSize) {

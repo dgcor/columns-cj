@@ -2,7 +2,6 @@ package Columns
 
 import cjsfml.graphics.*
 import dgengine.*
-import std.collection.*
 
 class LevelDraw {
     static func setAnimationPosition(level: Level, anim: Animation, boardPos: (Float32, Float32)): Unit {
