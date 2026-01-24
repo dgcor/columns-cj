@@ -1,8 +1,8 @@
 [package]
   cjc-version = "1.0.0"
-  name = "Columns"
+  name = "columns"
   description = "Columns game"
-  version = "1.2.2"
+  version = "1.2.3"
   target-dir = ""
   src-dir = ""
   output-type = "executable"
