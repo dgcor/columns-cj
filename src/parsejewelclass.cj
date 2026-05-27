@@ -1,8 +1,8 @@
 package columns
 
 import dgengine.*
-import stdx.encoding.json.*
 import std.math.*
+import stdjson2.*
 
 func parseJewelClass(game: Game, elem: JsonValue): Unit {
     if (let Some(level) <- game.resources.getLevel<Level>(getStringCharKey(elem, "level"))) {

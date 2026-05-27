@@ -6,12 +6,12 @@ func registerHooks(): Unit {
     Hooks.parseDocumentElem = parseDocumentElem
     Hooks.parseActionElem = parseActionElem
 
-    Game.DefaultSizeX = 320
-    Game.DefaultSizeY = 224
+    Defaults.GAME_SIZE_X = 320
+    Defaults.GAME_SIZE_Y = 224
 
-    Game.MinSizeX = 320
-    Game.MinSizeY = 224
+    Defaults.GAME_MIN_SIZE_X = 320
+    Defaults.GAME_MIN_SIZE_Y = 224
 
-    Game.RefSizeX = 320
-    Game.RefSizeY = 224
+    Defaults.GAME_REF_SIZE_X = 320
+    Defaults.GAME_REF_SIZE_Y = 224
 }

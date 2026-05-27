@@ -1,9 +1,9 @@
 package columns
 
 import dgengine.*
-import stdx.encoding.json.stream.*
 import std.collection.*
 import std.io.*
+import stdjson2.*
 
 class LevelSave {
     static func load(level: Level, filePath: String): Bool {

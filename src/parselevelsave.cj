@@ -1,10 +1,10 @@
 package columns
 
 import dgengine.*
-import stdx.encoding.json.*
 import std.collection.*
+import stdjson2.*
 
-private func parseLevelSavePlayer(elem: JsonObject): LevelPlayer {
+private func parseLevelSavePlayer(elem: JsonValue): LevelPlayer {
     var plr = LevelPlayer()
 
     plr.levelStart = getInt64Key(elem, "levelStart")
@@ -19,7 +19,7 @@ private func parseLevelSavePlayer(elem: JsonObject): LevelPlayer {
     return plr
 }
 
-private func parseLevelSaveJewel(level: Level, elem: JsonObject): ?Jewel {
+private func parseLevelSaveJewel(level: Level, elem: JsonValue): ?Jewel {
     let jewelClass = level.getJewelClass(getStringKey(elem, "jewel"))
     if (let Some(jewelClass) <- jewelClass) {
         let pos = getVector2fKey(elem, "position")
@@ -43,7 +43,7 @@ func parseLevelSaveObj(level: Level, elem: JsonValue): LevelSaveObject {
     levelSave.playerIdx = Int64(getUIntKey(elem, "playerIndex"))
 
     if (let Some(elem) <- getValidArray(elem, "players")) {
-        for (val in elem.getItems()) {
+        for (val in elem) {
             if (let Some(val) <- getValidObject(val)) {
                 levelSave.players.add(parseLevelSavePlayer(val))
             }
@@ -51,7 +51,7 @@ func parseLevelSaveObj(level: Level, elem: JsonValue): LevelSaveObject {
     }
 
     if (let Some(elem) <- getValidArray(elem, "board")) {
-        for (val in elem.getItems()) {
+        for (val in elem) {
             if (let Some(val) <- getValidObject(val)) {
                 if (let Some(jewel) <- parseLevelSaveJewel(level, val)) {
                     if (getBoolKey(val, "flash") == true) {
@@ -66,7 +66,7 @@ func parseLevelSaveObj(level: Level, elem: JsonValue): LevelSaveObject {
 
     if (let Some(elem) <- getValidArray(elem, "jewels")) {
         let jewels = ArrayList<Jewel>()
-        for (val in elem.getItems()) {
+        for (val in elem) {
             if (let Some(val) <- getValidObject(val)) {
                 if (let Some(jewel) <- parseLevelSaveJewel(level, val)) {
                     jewels.add(jewel)

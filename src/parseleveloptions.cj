@@ -1,13 +1,13 @@
 package columns
 
 import dgengine.*
-import stdx.encoding.json.*
 import std.collection.*
+import stdjson2.*
 
-func parseLevelOptions(optionsManager: LevelOptionsManager, elem: JsonArray): Unit {
+func parseLevelOptions(optionsManager: LevelOptionsManager, elem: JsonValue): Unit {
     var options = LevelOptions()
     let allOptions = ArrayList<LevelOptions>()
-    for (val in elem.getItems()) {
+    for (val in elem) {
         options.level = getInt64Key(val, "level", default: options.level + 1)
         options.levelMax = getInt64Key(val, "levelMax", default: options.levelMax)
         options.scoreMin = getInt64Key(val, "scoreMin", default: options.scoreMin)
@@ -24,7 +24,7 @@ func parseLevelOptions(optionsManager: LevelOptionsManager, elem: JsonArray): Un
 
         if (let Some(elem) <- getValidArray(val, "jewels")) {
             let jewels = ArrayList<String>()
-            for (val in elem.getItems()) {
+            for (val in elem) {
                 if (let Some(id) <- getValidString(val)) {
                     jewels.add(id)
                 }

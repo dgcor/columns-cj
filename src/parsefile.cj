@@ -1,7 +1,7 @@
 package columns
 
 import dgengine.*
-import stdx.encoding.json.*
+import stdjson2.*
 
 func parseDocumentElem(game: Game, name: String, elem: JsonValue, replaceVars: Box<ReplaceVars>): Bool {
     match (name) {
